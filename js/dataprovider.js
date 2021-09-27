@@ -1,7 +1,7 @@
 
 
 const listProduct = document.getElementById('product-list')
-localStorage.setItem('next','https://aplicaion-clothing-api.herokuapp.com/api/v1/provider/')
+localStorage.setItem('next',`https://aplicaion-clothing-api.herokuapp.com/api/v1/provider/?page=${window.location.search.split('=')[1]}`)
 
 
 
@@ -20,11 +20,11 @@ function onSetItem() {
   fetch(localStorage.getItem('next'))
     .then(res => res.json())
     .then(res => {
+
+      console.log(res)
       
       if(res.next == null) {
-        localStorage.setItem('next','end')
-      } else {
-        localStorage.setItem('next',res.next)
+        document.getElementById('load-btn').style.display = 'none'
       }
 
       for(var x = 0;x<=res.results.length;x++) {
@@ -77,7 +77,7 @@ function onPagination() {
   */
 
   var el = document.getElementById('load-btn').addEventListener('click',() => {
-    onSetItem()
+    location.href = `?page=${parseInt(window.location.search.split('=')[1]) + 1}`
   })
 }
 
