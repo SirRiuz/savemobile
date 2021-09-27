@@ -33,7 +33,6 @@ function onSetItem() {
             <div class="product-item">
             <div id="image-picture-${res.results[x].id}"></div>
             <div class="meta-info">
-              ${x}
               <div id="title-container">
                 <strong id="title">${res.results[x].title}</strong>
               </div>
