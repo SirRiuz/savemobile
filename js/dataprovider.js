@@ -1,7 +1,6 @@
 
 
 const listProduct = document.getElementById('product-list')
-localStorage.setItem('isPagination',0)
 localStorage.setItem('next','https://aplicaion-clothing-api.herokuapp.com/api/v1/provider/')
 
 
@@ -13,15 +12,19 @@ function onSetItem() {
     los items en la pantalla
   */
 
+
+  if(localStorage.getItem('next') == 'end'){
+    document.getElementById('load-btn').style.display = 'none'
+  }
+
   fetch(localStorage.getItem('next'))
     .then(res => res.json())
     .then(res => {
       
       if(res.next == null) {
-        localStorage.setItem('isPagination',1)
+        localStorage.setItem('next','end')
       } else {
-        localStorage.setItem('next',res.next)        
-        localStorage.setItem('isPagination',0)
+        localStorage.setItem('next',res.next)
       }
 
       for(var x = 0;x<=res.results.length;x++) {
@@ -73,30 +76,15 @@ function onPagination() {
     datos con un scroll infinito
   */
 
-  window.addEventListener('scroll',(e) => {
-    let scrollHeight = Math.max(
-      document.body.scrollHeight, document.documentElement.scrollHeight,
-      document.body.offsetHeight, document.documentElement.offsetHeight,
-      document.body.clientHeight, document.documentElement.clientHeight
-    )
-
-    if(pageYOffset >= (scrollHeight - 1000)) {
-      if(localStorage.getItem('isPagination') == 0){
-        localStorage.setItem('isPagination',1)
-        onSetItem()
-      }
-    }
-
-    
+  var el = document.getElementById('load-btn').addEventListener('click',() => {
+    onSetItem()
   })
 }
 
 
 
-
-onSetItem()
 onPagination()
-
+onSetItem()
 
 
 
