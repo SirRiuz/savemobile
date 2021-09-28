@@ -1,7 +1,7 @@
 
 
 const listProduct = document.getElementById('product-list')
-localStorage.setItem('next',`https://aplicaion-clothing-api.herokuapp.com/api/v1/provider/?page=${window.location.search.split('=')[1]}`)
+localStorage.setItem('next',`https://ropa-api-pro.herokuapp.com/api/v1/provider/?page=${window.location.search.split('=')[1]}`)
 
 
 
